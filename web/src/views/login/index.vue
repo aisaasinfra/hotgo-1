@@ -6,7 +6,7 @@
         <header class="justify-between">
           <n-space justify="center">
             <div></div>
-            <img src="~@/assets/images/logo.png" class="account-logo" alt="" />
+            <img :src="projectLogo" class="account-logo" alt="" />
             <n-gradient-text type="primary" :size="26">{{ projectName }}</n-gradient-text>
             <div></div>
           </n-space>
@@ -31,9 +31,10 @@
   import RegisterFrom from './register/index.vue';
   import { useRouter } from 'vue-router';
   import { useUserStore } from '@/store/modules/user';
+  import { useAppBrand } from '@/hooks/setting/useAppBrand';
 
   const userStore = useUserStore();
-  const projectName = computed(() => userStore.loginConfig?.projectName);
+  const { projectName, projectLogo } = useAppBrand();
 
   interface LoginModule {
     key: string;

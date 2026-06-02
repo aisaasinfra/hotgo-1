@@ -1,12 +1,12 @@
 <template>
   <div class="logo">
-    <img src="~@/assets/images/logo.png" alt="" :class="{ 'mr-2': !collapsed }" />
+    <img :src="projectLogo" alt="" :class="{ 'mr-2': !collapsed }" />
     <h2 v-show="!collapsed" class="title">{{ projectName }}</h2>
   </div>
 </template>
 
 <script>
-  import { useUserStore } from '@/store/modules/user';
+  import { useAppBrand } from '@/hooks/setting/useAppBrand';
 
   export default {
     name: 'Index',
@@ -16,10 +16,10 @@
       },
     },
     setup() {
-      const userStore = useUserStore();
-      const projectName = userStore.loginConfig?.projectName;
+      const { projectName, projectLogo } = useAppBrand();
       return {
         projectName,
+        projectLogo,
       };
     },
   };

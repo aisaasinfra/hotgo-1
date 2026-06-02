@@ -70,6 +70,7 @@ export interface LoginConfigState {
   i18nSwitch: boolean;
   defaultLanguage: string;
   projectName: string;
+  projectLogo: string;
 }
 
 export interface IUserState {

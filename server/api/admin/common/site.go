@@ -80,6 +80,7 @@ type SiteLoginConfigRes struct {
 	I18nSwitch      bool   `json:"i18nSwitch" dc:"国际化开关"`
 	DefaultLanguage string `json:"defaultLanguage" dc:"默认语言设置"`
 	ProjectName     string `json:"projectName" dc:"项目名称"`
+	ProjectLogo     string `json:"projectLogo" dc:"项目logo"`
 }
 
 // SitePingReq ping

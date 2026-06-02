@@ -63,12 +63,14 @@
   import { useDialog, useMessage } from 'naive-ui';
   import { getConfig, updateConfig } from '@/api/sys/config';
   import FileChooser from '@/components/FileChooser/index.vue';
+  import { useUserStore } from '@/store/modules/user';
 
   const group = ref('basic');
   const show = ref(false);
   const formRef: any = ref(null);
   const message = useMessage();
   const dialog = useDialog();
+  const userStore = useUserStore();
 
   const formValue = ref({
     basicName: 'HotGo',
@@ -113,7 +115,8 @@
   function formSubmit() {
     formRef.value.validate((errors) => {
       if (!errors) {
-        updateConfig({ group: group.value, list: formValue.value }).then((_res) => {
+        updateConfig({ group: group.value, list: formValue.value }).then(async (_res) => {
+          await Promise.all([userStore.LoadLoginConfig(), userStore.GetConfig()]);
           message.success('更新成功');
           load();
         });

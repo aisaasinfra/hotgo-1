@@ -6,7 +6,7 @@
       v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
     >
       <div class="logo" v-if="navMode === 'horizontal'">
-        <img src="~@/assets/images/logo.png" alt="" />
+        <img :src="projectLogo" alt="" />
         <h2 v-show="!collapsed" class="title">{{ projectName }}</h2>
       </div>
       <AsideMenu
@@ -226,6 +226,7 @@
   import { getIcon } from '@/enums/systemMessageEnum';
   import { availableLocales, useI18nStore } from '@/store/modules/i18n';
   import Search from './Search.vue';
+  import { useAppBrand } from '@/hooks/setting/useAppBrand';
 
   export default defineComponent({
     name: 'PageHeader',
@@ -263,7 +264,7 @@
 
       // const { username, avatar } = userStore?.info || {};
       const drawerSetting = ref();
-      const projectName = userStore.loginConfig?.projectName;
+      const { projectName, projectLogo } = useAppBrand();
 
       const state = reactive({
         // username: username || '',
@@ -577,6 +578,7 @@
         userStore,
         updateMenu,
         projectName,
+        projectLogo,
         localeSelect,
         i18nStore,
         availableLocales,

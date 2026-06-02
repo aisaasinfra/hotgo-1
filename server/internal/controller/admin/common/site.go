@@ -93,7 +93,21 @@ func (c *cSite) LoginConfig(ctx context.Context, _ *common.SiteLoginConfigReq) (
 	res.LoginConfig = login
 	res.I18nSwitch = g.Cfg().MustGet(ctx, "system.i18n.switch", true).Bool()
 	res.DefaultLanguage = g.Cfg().MustGet(ctx, "system.i18n.defaultLanguage", consts.SysDefaultLanguage).String()
-	res.ProjectName = gi18n.T(ctx, "HotGo管理系统")
+	res.ProjectName, res.ProjectLogo = c.getProjectBrand(ctx)
+	return
+}
+
+func (c *cSite) getProjectBrand(ctx context.Context) (name string, logo string) {
+	name = gi18n.T(ctx, "HotGo管理系统")
+
+	basic, err := service.SysConfig().GetBasic(ctx)
+	if err != nil || basic == nil {
+		return
+	}
+	if basicName := gstr.Trim(basic.Name); basicName != "" {
+		name = basicName
+	}
+	logo = gstr.Trim(basic.Logo)
 	return
 }
 
